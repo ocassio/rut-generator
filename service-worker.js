@@ -57,8 +57,8 @@ self.addEventListener('fetch', function(event) {
                     .then(function (networkResponse) {
                         caches.open(staticCacheName).then(function (cache) {
                             cache.put(event.request, networkResponse);
-                            return networkResponse;
                         })
+                        return networkResponse;
                     });
             })
     );
