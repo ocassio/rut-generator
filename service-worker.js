@@ -29,37 +29,37 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches
-            .keys()
-            .then((keys) => {
-                return Promise.all(
-                    keys
-                        .filter((key) => {
-                            // If your cache name don't start with the current version...
-                            return key.includes(siteName) && !key.startsWith(version);
-                        })
-                        .map((key) => {
-                            //...it will be deleted
-                            return caches.delete(key);
-                        })
-                );
-            })
-            .then(() => {
-                console.log('[Service Worker] Acivation has been completed');
-            })
+        .keys()
+        .then((keys) => {
+            return Promise.all(
+                keys
+                .filter((key) => {
+                    // If your cache name don't start with the current version...
+                    return key.includes(siteName) && !key.startsWith(version);
+                })
+                .map((key) => {
+                    //...it will be deleted
+                    return caches.delete(key);
+                })
+            );
+        })
+        .then(() => {
+            console.log('[Service Worker] Acivation has been completed');
+        })
     )
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
     event.respondWith(
         caches.match(event.request)
-            .then(function(response) {
-                return response || fetch(event.request)
+        .then(function (response) {
+            return response || caches.open(staticCacheName).then(function (cache) {
+                return fetch(event.request)
                     .then(function (networkResponse) {
-                        caches.open(staticCacheName).then(function (cache) {
-                            cache.put(event.request, networkResponse);
-                        })
+                        cache.put(event.request, networkResponse);
                         return networkResponse;
-                    });
-            })
+                    })
+            });
+        })
     );
 });
