@@ -56,7 +56,7 @@ self.addEventListener('fetch', function (event) {
             return response || caches.open(staticCacheName).then(function (cache) {
                 return fetch(event.request)
                     .then(function (networkResponse) {
-                        if (event.request.scheme === 'https') {
+                        if (event.request.url.startsWith('https://')) {
                             cache.put(event.request, networkResponse.clone());
                         }
                         return networkResponse;
