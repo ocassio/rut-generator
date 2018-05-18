@@ -2,10 +2,13 @@ const version = 'v1';
 const siteName = 'rut-generator';
 const staticCacheName = version + '::' + siteName;
 
+const context = "/" + siteName;
+
 const offlineStuff = [
-    'index.html',
-    'index.js',
-    'styles.css',
+    context + '/',
+    context + '/index.html',
+    context + 'index.js',
+    context + 'styles.css',
     'https://fonts.googleapis.com/css?family=Open+Sans:300,400'
 ];
 
