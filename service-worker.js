@@ -1,10 +1,11 @@
-const version = "v1";
-const staticCacheName = version + '::static-resources';
+const version = 'v1';
+const siteName = 'rut-generator';
+const staticCacheName = version + '::' + siteName;
 
 const offlineStuff = [
-    '/index.html',
-    '/index.js',
-    '/styles.css',
+    'index.html',
+    'index.js',
+    'styles.css',
     'https://fonts.googleapis.com/css?family=Open+Sans:300,400'
 ];
 
@@ -31,7 +32,7 @@ self.addEventListener('activate', function (event) {
                     keys
                         .filter((key) => {
                             // If your cache name don't start with the current version...
-                            return !key.startsWith(version);
+                            return key.includes(siteName) && !key.startsWith(version);
                         })
                         .map((key) => {
                             //...it will be deleted
