@@ -7,8 +7,8 @@ const context = "/" + siteName;
 const offlineStuff = [
     context + '/',
     context + '/index.html',
-    context + 'index.js',
-    context + 'styles.css',
+    context + '/index.js',
+    context + '/styles.css',
     'https://fonts.googleapis.com/css?family=Open+Sans:300,400'
 ];
 
